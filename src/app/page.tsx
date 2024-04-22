@@ -8,7 +8,11 @@ export default async function Page() {
 
   return (
     <div>
-      <ClientComponent session={session} />
+      {session ? (
+        <ClientComponent session={session} />
+      ) : (
+        <div>Loading...</div> // or any other fallback UI
+      )}
     </div>
   );
 }

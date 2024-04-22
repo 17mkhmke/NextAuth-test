@@ -1,13 +1,14 @@
 // src/app/layout.tsx
 "use client";
-import { signIn, signOut, SessionProvider } from "next-auth/react"; // Import SessionProvider
+import * as React from "react";
+import { signIn, signOut } from "next-auth/react";
 import { Button } from "@fluentui/react-components";
 
-interface LayoutProps {
-  children: React.ReactNode; // Explicitly specify the type of children prop
+interface RootLayoutProps {
+  children: React.ReactNode;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const RootLayout = ({ children }: RootLayoutProps) => {
   const handleLogin = () => {
     signIn("azure-ad-b2c");
   };
@@ -17,24 +18,20 @@ const Layout = ({ children }: LayoutProps) => {
   };
 
   return (
-    <SessionProvider>
-      {" "}
-      {/* Wrap layout with SessionProvider */}
-      <html lang="en">
-        <body>
-          <div>
-            <header>
-              <nav>
-                <Button onClick={handleLogin}>Login</Button>
-                <Button onClick={handleLogout}>Logout</Button>
-              </nav>
-            </header>
-            <main>{children}</main>
-          </div>
-        </body>
-      </html>
-    </SessionProvider>
+    <html lang="en">
+      <body>
+        <div>
+          <header>
+            <nav>
+              <Button onClick={handleLogin}>Login</Button>
+              <Button onClick={handleLogout}>Logout</Button>
+            </nav>
+          </header>
+          <main>{children}</main>
+        </div>
+      </body>
+    </html>
   );
 };
 
-export default Layout;
+export default RootLayout;
